@@ -1,0 +1,25 @@
+{
+    "seed": 1884,
+    "data_path": "/media/ubuntu/EEDE7473DE743645/xhx/Data/eeg_vit.csv",
+    "image_path": "/media/ubuntu/EEDE7473DE743645/xhx/Data/img_vit.csv",
+    "project": "train_pos_img_text_rep",
+    "name": "lr=3e-4_img_pos_pro_eeg",
+    "n_classes": 2,
+    "lr": 1e-05,
+    "epochs": 10,
+    "batch_size": 64,
+    "encoder_type": "ATMS_50",
+    "topo": "all",
+    "frequency": "all",
+    "pretrain_model": "/media/ubuntu/EEDE7473DE743645/xhx/GVFL/gvfl_classification/models/contrast/ATMS_50/retrieval/tm-2s_topo-all_hz-all_03-19_17-24.pth",
+    "strategy": "pretraining",
+    "channel": {
+        "all": 96,
+        "frontal": 26,
+        "central": 18,
+        "parietal": 20,
+        "temporal": 6,
+        "occipital": 26
+    },
+    "time": "2s"
+}
