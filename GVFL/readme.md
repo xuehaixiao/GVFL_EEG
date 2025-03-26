@@ -4,7 +4,7 @@
 ##### Core idea: basic constrastive learning for image and EEG. Interesting analysis from neuroscience perspective! 🤣
 
 ## Abstract
-![alt text](image-28.png)
+![alt text](framework.png)
 
 - We introduce GVFL-EEG, a novel two-stage learning
 framework designed for decoding visual object cate-
@@ -33,32 +33,26 @@ many thanks for sharing good datasets!
 [EEG40000](https://ieee-dataport.org/open-access/dataset-object-classification-randomized-eeg-trials)
 
 
-## EEG pre-processing
-### Script path
-- `./GVFL/data_preprocess/bin_self/`
-### Data path 
-- raw data: `./Data/Things-EEG2/Raw_data/`
-- proprocessed eeg data: `./Data/Things-EEG2/Preprocessed_data_250Hz/`
-### Steps(尚未编辑)
-1. pre-processing EEG data 
-   - modify `preprocessing_utils.py` as you need.
-     - choose channels
-     - epoching
+
+### Data pre-processing Steps
+1. pre-processing path
+   - `.data_preprocess/bin_self/`
+   - modify `preprocessing.m` as you need.
+     - choose time range,downsample rate and other parameters.
+2. pre-processing EEG data 
+     - Re-referencing
+     - Signal filtering
+     - channel selection
+     - Time window selection
      - baseline correction
-     - resample to 250 Hz
-     - sort by condition
-     - Multivariate Noise Normalization (z-socre is also ok)
-   - `python preprocessing.py` for each subject. 
+     - downsampling
+     - Normalization
+     - Save the preprocessed data
 
-2. get the center images of each test condition (for testing, contrast with EEG features)
-   - get images from original Things dataset but discard the images used in EEG test sessions.
-
-
-### Annotation
-please ensure that you have file "sensor_dataframe.xlsx" ,~~"eeg_vit.csv" and "img_vit.csv"~~ in your root_path
-  
-## Image features from pre-trained models
-
+3. load preprocessed data and extract img features
+   - `.data_preprocess/bin/vit_img.py`
+   - modify `vit_img.py` as you need.
+   - extract image features using ViT model.
 
 
 ## Prepare Environment
@@ -66,41 +60,18 @@ please ensure that you have file "sensor_dataframe.xlsx" ,~~"eeg_vit.csv" and "i
 pip install -r requirements.txt
 ~~~
 
-
-## Training and testing
-
-To run the code, follow these steps:
-
-### Modify the Dataset Path
-Open the configuration file (e.g.,  config.py) and update the dataset path to point to your preprocessed file. details please see config.py
-
-
 ### Run the Code
+Modify `gvfl_classification\config.json` as you need.
 Use the following command to start the program:
 for pretrain:
-~~~
-bash shell/pretrain.sh
-~~~
-
+  - `.gvfl_classification\GVFL_pretrain.py`
 for finetune classification:
-~~~
-bash shell/train_classification.sh
-~~~
+  - `.gvfl_classification\GVFL_classification.py`
 
 
-
-
-
-## Citation(尚未编辑)
+## Citation
 Hope this code is helpful. I would appreciate you citing us in your paper. 😊
-```
-@inproceedings{song2024decoding,
-  title = {Decoding {{Natural Images}} from {{EEG}} for {{Object Recognition}}},
-  author = {Song, Yonghao and Liu, Bingchuan and Li, Xiang and Shi, Nanlin and Wang, Yijun and Gao, Xiaorong},
-  booktitle = {International {{Conference}} on {{Learning Representations}}},
-  year = {2024},
-}
-```
+
 <!-- ## Acknowledgement
 
 ## References
