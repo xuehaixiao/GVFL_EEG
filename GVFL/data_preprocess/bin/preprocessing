@@ -1,0 +1,22 @@
+#!/bin/bash
+name=/tmp/imagenet40-1000/imagenet40-1000
+dir=/fs/aux/qobi/eeg-datasets/imagenet40-1000/preprocessed/imagenet40-1000
+rm -rf /tmp/imagenet40-1000
+mkdir /tmp/imagenet40-1000
+rm -rf /fs/aux/qobi/eeg-datasets/imagenet40-1000/preprocessed/
+mkdir /fs/aux/qobi/eeg-datasets/imagenet40-1000/preprocessed/
+for subject in 1; do
+    mkdir $name-$subject
+done
+cd ~/eeg-experiments/imagenet40-1000/bin/
+matlab -nosplash -nodesktop -r "preprocessing"
+for subject in 1; do
+    python split_even.py\
+           -iv image\
+	   -s big\
+	   -p $name-$subject\
+	   -n $dir-$subject.pth\
+           -stimuli image.txt\
+	   -f 5
+done
+rm -rf /tmp/imagenet40-1000
